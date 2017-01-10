@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.my.dao.UserPFRelRepository;
+import com.my.model.MyResp;
 import com.my.model.UserPf;
 import com.my.model.UserPfRel;
 
@@ -47,18 +48,34 @@ public class MyService {
 		return listUserPortRel;
 	}
 
-	public void processDeleteByUserId(String userId) {
-		userPFRelRepository.deleteByUserId(userId);
+	public boolean processDeleteByUserId(String userId) {
+		boolean ret = true;
+
+		try {
+			userPFRelRepository.deleteByUserId(userId);
+		} catch (Exception e) {
+			ret = false;
+		}
+
+		return ret;
 	}
 
-	public void processAddByUserId(String userId) {
+	public boolean processAddByUserId(String userId) {
+
+		boolean ret = true;
 
 		UserPf userPf = new UserPf();
 		userPf.setUserId(userId);
 		userPf.setPfId("1234567.89");
 		userPf.setBranchCode(1);
 
-		userPFRelRepository.save(userPf);
+		try {
+			userPFRelRepository.save(userPf);
+		} catch (Exception e) {
+			ret = false;
+		}
+		
+		return ret;
 	}
 
 	public List<UserPfRel> processUserPortfolioRel(String userId) {
@@ -72,4 +89,23 @@ public class MyService {
 		listUserPortRel = userPFRelRepository.findUserPortIds(userId);
 		return listUserPortRel;
 	}
+
+	/**
+	 * This method is to deal with the my specified response
+	 * 
+	 * @return MyResp
+	 */
+	public MyResp processMyResp(String statusDesc, boolean status) {
+		MyResp myResp = new MyResp();
+
+		if (status) {
+			myResp.setStatusCd("SUCCESS");
+		} else {
+			myResp.setStatusCd("FAIL");
+		}
+
+		myResp.setStatusDesc(statusDesc);
+		return myResp;
+	}
+
 }

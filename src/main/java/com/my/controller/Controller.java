@@ -15,6 +15,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.my.model.MyResp;
 import com.my.model.UserPf;
 import com.my.model.UserPfRel;
 import com.my.service.MyService;
@@ -60,20 +63,32 @@ public class Controller {
 	 * http://localhost:18888/delete-user-by-id?userId=US088
 	 */
 	@RequestMapping(method = RequestMethod.GET, path = "/delete-user-by-id")
-	public void DelByUserId(
+	public ResponseEntity<MyResp> DelByUserId(
 			@RequestParam(value = "userId") @NotNull(message = "validation.name.notnull") @Size(min = 1, max = 15, message = "validation.param.size") String userId,
 			HttpServletRequest request) {
-		myService.processDeleteByUserId(userId);
+		boolean status = true;
+
+		status = myService.processDeleteByUserId(userId);
+
+		MyResp myResp = myService.processMyResp("DELETE_USER", status);
+
+		return new ResponseEntity<MyResp>(myResp, HttpStatus.OK);
 	}
 
 	/*
 	 * http://localhost:18888/add-user-by-id?userId=US088
 	 */
 	@RequestMapping(method = RequestMethod.GET, path = "/add-user-by-id")
-	public void AddByUserId(
+	public ResponseEntity<MyResp> AddByUserId(
 			@RequestParam(value = "userId") @NotNull(message = "validation.name.notnull") @Size(min = 1, max = 15, message = "validation.param.size") String userId,
 			HttpServletRequest request) {
-		myService.processAddByUserId(userId);
+		boolean status = true;
+
+		status = myService.processAddByUserId(userId);
+
+		MyResp myResp = myService.processMyResp("ADD_USER", status);
+
+		return new ResponseEntity<MyResp>(myResp, HttpStatus.OK);
 	}
 
 	/*
