@@ -9,7 +9,8 @@ import javax.persistence.*;
  */
 @Embeddable
 public class RelPfPK implements Serializable {
-	//default serial version id, required for serializable classes.
+	
+	//Default serial version id, required for serializable classes.
 	private static final long serialVersionUID = 1L;
 
 	@Column(name="REL_ID")

@@ -17,45 +17,59 @@ import org.springframework.stereotype.Service;
 
 import com.my.dao.UserPFRelRepository;
 import com.my.model.UserPf;
+import com.my.model.UserPfRel;
 
 @Service
-//@Transactional
+// @Transactional
 public class MyService {
 
 	@Autowired(required = true)
 	UserPFRelRepository userPFRelRepository;
 
-
 	/**
-	 * This method is give list of asste market value of particular portfolio. 
-	 * @param userId This is a repository for asset market value.
-	 * @param repository5 This is a repository for get user portfolio
-	 * @return List  This returns List of  data of given portfolio or relation
+	 * This method is give list of asste market value of particular portfolio.
+	 * 
+	 * @param userId
+	 *            This is a repository for asset market value.
+	 * @param repository5
+	 *            This is a repository for get user portfolio
+	 * @return List This returns List of data of given portfolio or relation
 	 */
-	public List<UserPf> processUserById(String userId){
+	public List<UserPf> processUserById(String userId) {
 		List<UserPf> listUserPortRel = null;
 		listUserPortRel = userPFRelRepository.findUserPortId(userId);
 		return listUserPortRel;
 	}
-	
-	public Iterable<UserPf> processUserList(){
+
+	public Iterable<UserPf> processUserList() {
 		Iterable<UserPf> listUserPortRel = null;
 		listUserPortRel = userPFRelRepository.findAll();
 		return listUserPortRel;
 	}
-	
 
-	public void processDeleteByUserId(String userId){
+	public void processDeleteByUserId(String userId) {
 		userPFRelRepository.deleteByUserId(userId);
 	}
-	
-	public void processAddByUserId(String userId){
-		
-		UserPf userPf  = new UserPf();
+
+	public void processAddByUserId(String userId) {
+
+		UserPf userPf = new UserPf();
 		userPf.setUserId(userId);
 		userPf.setPfId("1234567.89");
 		userPf.setBranchCode(1);
-		
+
 		userPFRelRepository.save(userPf);
 	}
-} 
+
+	public List<UserPfRel> processUserPortfolioRel(String userId) {
+		List<UserPfRel> listUserPortRel = null;
+		listUserPortRel = userPFRelRepository.findUserPortRelIds(userId);
+		return listUserPortRel;
+	}
+
+	public List<UserPfRel> processUserPortfolio(String userId) {
+		List<UserPfRel> listUserPortRel = null;
+		listUserPortRel = userPFRelRepository.findUserPortIds(userId);
+		return listUserPortRel;
+	}
+}
