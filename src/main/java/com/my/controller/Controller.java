@@ -18,13 +18,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.my.model.Car;
 import com.my.model.MyResp;
+import com.my.model.RequestWrapper;
 import com.my.model.UserPf;
 import com.my.model.UserPfRel;
 import com.my.service.MyService;
@@ -105,5 +108,62 @@ public class Controller {
 			listUserPortfolio = myService.processUserPortfolio(userId);
 		}
 		return listUserPortfolio;
+	}
+	
+	/*
+	http://localhost:18888/vehicle/cars
+	[
+	  {
+	    "color":"Blue",
+	    "miles":200,
+	    "vin":"1234"
+	  },
+	  {
+	    "color":"Red",
+	    "miles":500,
+	    "vin":"1235"
+	  }
+	]
+	 */
+	@RequestMapping(value = "/vehicle/cars", method = RequestMethod.POST)
+	public ResponseEntity<List<Car>> update(@RequestBody List<Car> cars) {
+
+		cars.stream().forEach(c -> {
+			c.setMiles(c.getMiles() + 100);
+			c.setVIN("VIN" + c.getVIN());
+		});
+
+		return new ResponseEntity<List<Car>>(cars, HttpStatus.OK);
+	}
+	
+	/*
+	http://localhost:18888/carsandtrucks
+	{
+		"cars": [{
+			"color": "Blue",
+			"miles": 100,
+			"vin": "1234"
+		}, {
+			"color": "Red",
+			"miles": 400,
+			"vin": "1235"
+		}],
+		"truck": {
+			"color": "Red",
+			"miles": 400,
+			"vin": "1235"
+		}
+	}
+	 */
+	@RequestMapping(value = "/carsandtrucks", method = RequestMethod.POST)
+	public ResponseEntity<RequestWrapper> updateWithMultipleObjects(
+	        @RequestBody RequestWrapper requestWrapper) {
+
+	    requestWrapper.getCars().stream()
+	            .forEach(c -> c.setMiles(c.getMiles() + 100));
+
+	    // TODO: call persistence layer to update
+
+	    return new ResponseEntity<RequestWrapper>(requestWrapper, HttpStatus.OK);
 	}
 }
