@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='utf-8' ?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	</head>
+	<body>
+		<h1 id="myspringboot">"# MySpringBoot"</h1>
+		<h1 id="git-ignore-gitignore">GIT IGNORE（.gitignore）</h1>
+		<blockquote>
+			<p></p>
+			<pre><code>/bin/  
+/.settings/  
+/target/  
+/syslog/  </code></pre>
+			<pre><code>或在需要的目录与文件上右键Team点击忽略就行</code></pre>
+		</blockquote>
+		<h2 id="ref">Ref</h2>
+		<blockquote>
+			<p></p>
+			<pre><code>*.class</code></pre>
+		</blockquote>
+		<blockquote>
+			<h5 id="ignore-package-files">Ignore Package Files</h5>
+			<pre><code>*.jar  
+*.war  
+*.ear  </code></pre>
+		</blockquote>
+		<blockquote>
+			<h5 id="ignore-maven-generated-target-folders">Ignore Maven generated target folders</h5>
+			<pre><code>target</code></pre>
+		</blockquote>
+		<blockquote>
+			<h5 id="ignore-eclipse-files">Ignore eclipse files</h5>
+			<pre><code>.project  
+.classpath  
+.settings  
+.metadata  </code></pre>
+		</blockquote>
+		<h1 id="git-operaton">GIT OPERATON</h1>
+		<blockquote>
+			<p></p>
+			<pre><code>## Iniate the repository
+echo "# MySprintBoot" &gt;&gt; README.md  
+git init  
+git add README.md  
+git commit -m "first commit"  
+git remote add origin https://super211@github.com/super211/MySprintBoot.git [git remote rm origin]  
+git push -u origin master  </code></pre>
+		</blockquote>
+		<blockquote>
+			<p></p>
+			<pre><code>git rm -r --cached target</code></pre>
+		</blockquote>
+		<h1 id="resource-autowired-qualifier">@Resource、@Autowired、@Qualifier</h1>
+		<pre><code>public @interface EntitlementCheck {
+    public String commandGroupKey(); //Required for Hysterix implementation
+    public String resourceKey(); //Resource which we need to check the entitlement for
+}</code></pre>
+	</body>
+</html>

@@ -74,7 +74,7 @@ public class MyService {
 		} catch (Exception e) {
 			ret = false;
 		}
-		
+
 		return ret;
 	}
 

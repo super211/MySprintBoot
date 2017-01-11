@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.my.commons.aspect.DataCheck;
+import com.my.commons.aspect.EntitlementCheck;
 import com.my.model.Car;
 import com.my.model.MyResp;
 import com.my.model.RequestWrapper;
@@ -44,6 +45,7 @@ public class Controller {
 	 * http://localhost:18888/user-list-by-id?userId=US001
 	 */
 	@DataCheck
+	@EntitlementCheck(userId = "bruce", commandGroupKey = "readCommand", resourceKey = "resourceName")
 	@RequestMapping(method = RequestMethod.GET, path = "/user-list-by-id")
 	public @ResponseBody List<UserPf> UserPortRel(
 			@RequestParam(value = "userId") @NotNull(message = "validation.name.notnull") @Size(min = 1, max = 15, message = "validation.param.size") String userId,
@@ -58,6 +60,8 @@ public class Controller {
 	 * http://localhost:8888/user-list?userId=US001
 	 */
 	@DataCheck
+	// @Qualifier(value="entitlementService3Bean")
+	@EntitlementCheck(userId = "bruce", commandGroupKey = "readCommand", resourceKey = "resourceName3")
 	@RequestMapping(method = RequestMethod.GET, path = "/user-list")
 	public @ResponseBody Iterable<UserPf> UserList(HttpServletRequest request) {
 		Iterable<UserPf> listUserPortfolio = null;
@@ -69,6 +73,7 @@ public class Controller {
 	 * http://localhost:18888/delete-user-by-id?userId=US088
 	 */
 	@DataCheck
+	@EntitlementCheck(userId = "bruce", commandGroupKey = "readCommand", resourceKey = "resourceName")
 	@RequestMapping(method = RequestMethod.GET, path = "/delete-user-by-id")
 	public ResponseEntity<MyResp> DelByUserId(
 			@RequestParam(value = "userId") @NotNull(message = "validation.name.notnull") @Size(min = 1, max = 15, message = "validation.param.size") String userId,
@@ -86,6 +91,7 @@ public class Controller {
 	 * http://localhost:18888/add-user-by-id?userId=US088
 	 */
 	@DataCheck
+	@EntitlementCheck(userId = "bruce", commandGroupKey = "readCommand", resourceKey = "resourceName")
 	@RequestMapping(method = RequestMethod.GET, path = "/add-user-by-id")
 	public ResponseEntity<MyResp> AddByUserId(
 			@RequestParam(value = "userId") @NotNull(message = "validation.name.notnull") @Size(min = 1, max = 15, message = "validation.param.size") String userId,
@@ -103,6 +109,7 @@ public class Controller {
 	 * http://localhost:18888/user-portfolio-relations?userId=US001
 	 */
 	@DataCheck
+	@EntitlementCheck(userId = "bruce", commandGroupKey = "readCommand", resourceKey = "resourceName")
 	@RequestMapping(method = RequestMethod.GET, path = "/user-portfolio-relations")
 	public @ResponseBody List<UserPfRel> UserPortRels(
 			@RequestParam(value = "userId") @NotNull(message = "validation.name.notnull") @Size(min = 1, max = 15, message = "validation.param.size") String userId,
@@ -115,23 +122,13 @@ public class Controller {
 		}
 		return listUserPortfolio;
 	}
-	
+
 	/*
-	http://localhost:18888/vehicle/cars
-	[
-	  {
-	    "color":"Blue",
-	    "miles":200,
-	    "vin":"1234"
-	  },
-	  {
-	    "color":"Red",
-	    "miles":500,
-	    "vin":"1235"
-	  }
-	]
+	 * http://localhost:18888/vehicle/cars [ { "color":"Blue", "miles":200,
+	 * "vin":"1234" }, { "color":"Red", "miles":500, "vin":"1235" } ]
 	 */
 	@DataCheck
+	@EntitlementCheck(userId = "bruce", commandGroupKey = "readCommand", resourceKey = "resourceName")
 	@RequestMapping(value = "/vehicle/cars", method = RequestMethod.POST)
 	public ResponseEntity<List<Car>> update(@RequestBody List<Car> cars) {
 
@@ -142,36 +139,21 @@ public class Controller {
 
 		return new ResponseEntity<List<Car>>(cars, HttpStatus.OK);
 	}
-	
+
 	/*
-	http://localhost:18888/carsandtrucks
-	{
-		"cars": [{
-			"color": "Blue",
-			"miles": 100,
-			"vin": "1234"
-		}, {
-			"color": "Red",
-			"miles": 400,
-			"vin": "1235"
-		}],
-		"truck": {
-			"color": "Red",
-			"miles": 400,
-			"vin": "1235"
-		}
-	}
+	 * http://localhost:18888/carsandtrucks { "cars": [{ "color": "Blue",
+	 * "miles": 100, "vin": "1234" }, { "color": "Red", "miles": 400, "vin":
+	 * "1235" }], "truck": { "color": "Red", "miles": 400, "vin": "1235" } }
 	 */
 	@DataCheck
+	@EntitlementCheck(userId = "bruce", commandGroupKey = "readCommand", resourceKey = "resourceName2")
 	@RequestMapping(value = "/carsandtrucks", method = RequestMethod.POST)
-	public ResponseEntity<RequestWrapper> updateWithMultipleObjects(
-	        @RequestBody RequestWrapper requestWrapper) {
+	public ResponseEntity<RequestWrapper> updateWithMultipleObjects(@RequestBody RequestWrapper requestWrapper) {
 
-	    requestWrapper.getCars().stream()
-	            .forEach(c -> c.setMiles(c.getMiles() + 100));
+		requestWrapper.getCars().stream().forEach(c -> c.setMiles(c.getMiles() + 100));
 
-	    // TODO: call persistence layer to update
+		// TODO: call persistence layer to update
 
-	    return new ResponseEntity<RequestWrapper>(requestWrapper, HttpStatus.OK);
+		return new ResponseEntity<RequestWrapper>(requestWrapper, HttpStatus.OK);
 	}
 }

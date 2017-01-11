@@ -12,4 +12,9 @@ public class DataCheckConfiguration {
 	public DataCheckAspect nofifyAspect(){
 		return new DataCheckAspect();
 	}
+	
+	@Bean
+	public EntitlementAspect nofifyAspects(){
+		return new EntitlementAspect();
+	}
 }

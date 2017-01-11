@@ -1,7 +1,8 @@
 package com.my.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
+
+import javax.persistence.Embeddable;
 
 /**
  * The primary key class for the USER_PF database table.
@@ -9,7 +10,7 @@ import javax.persistence.*;
  */
 @Embeddable
 public class UserPfPK implements Serializable {
-	//default serial version id, required for serializable classes.
+	// default serial version id, required for serializable classes.
 	private static final long serialVersionUID = 1L;
 
 	public UserPfPK() {

@@ -6,7 +6,7 @@ public class UserPfRel implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	//To define all the fields that needs to be shown in the result
+	// To define all the fields that needs to be shown in the result
 	private String relId;
 
 	private String userId;

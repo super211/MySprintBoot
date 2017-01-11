@@ -21,9 +21,14 @@
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
 		<dependency>
-  			<groupId>com.oracle</groupId>
-  			<artifactId>ojdbc7</artifactId>
-  			<version>12.1.0.1.0</version>
+			<groupId>com.oracle</groupId>
+			<artifactId>ojdbc7</artifactId>
+			<version>12.1.0.1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.netflix.hystrix</groupId>
+			<artifactId>hystrix-core</artifactId>
+			<version>1.5.8</version>
 		</dependency>
 	</dependencies>
 
