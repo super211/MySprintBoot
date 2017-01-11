@@ -11,7 +11,8 @@ import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
 @EnableCaching
-@ComponentScan("com.my")
+//@ComponentScan("com.my")//it is not necessary when aspect in the same project
+//@Import(MetricConfiguration.class)//it is not necessary when aspect in the same project
 public class Application {
 
 	public static void main(String[] args) {
