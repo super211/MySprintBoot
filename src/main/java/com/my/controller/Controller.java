@@ -8,14 +8,20 @@
  */
 package com.my.controller;
 
+import java.net.URISyntaxException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,6 +34,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.my.commons.aspect.DataCheck;
 import com.my.commons.aspect.EntitlementCheck;
 import com.my.model.Car;
+import com.my.model.UserIdRequest;
 import com.my.model.MyResp;
 import com.my.model.RequestWrapper;
 import com.my.model.UserPf;
@@ -45,7 +52,7 @@ public class Controller {
 	 * http://localhost:18888/user-list-by-id?userId=US001
 	 */
 	@DataCheck
-	@EntitlementCheck(userId = "bruce", commandGroupKey = "readCommand", resourceKey = "resourceName")
+	@EntitlementCheck(userId = "bruce", commandGroupKey = "readCommand", resourceKey = "resourceName3")
 	@RequestMapping(method = RequestMethod.GET, path = "/user-list-by-id")
 	public @ResponseBody List<UserPf> UserPortRel(
 			@RequestParam(value = "userId") @NotNull(message = "validation.name.notnull") @Size(min = 1, max = 15, message = "validation.param.size") String userId,
@@ -73,7 +80,7 @@ public class Controller {
 	 * http://localhost:18888/delete-user-by-id?userId=US088
 	 */
 	@DataCheck
-	@EntitlementCheck(userId = "bruce", commandGroupKey = "readCommand", resourceKey = "resourceName")
+	@EntitlementCheck(userId = "bruce", commandGroupKey = "readCommand", resourceKey = "resourceName3")
 	@RequestMapping(method = RequestMethod.GET, path = "/delete-user-by-id")
 	public ResponseEntity<MyResp> DelByUserId(
 			@RequestParam(value = "userId") @NotNull(message = "validation.name.notnull") @Size(min = 1, max = 15, message = "validation.param.size") String userId,
@@ -91,7 +98,7 @@ public class Controller {
 	 * http://localhost:18888/add-user-by-id?userId=US088
 	 */
 	@DataCheck
-	@EntitlementCheck(userId = "bruce", commandGroupKey = "readCommand", resourceKey = "resourceName")
+	@EntitlementCheck(userId = "bruce", commandGroupKey = "readCommand", resourceKey = "resourceName3")
 	@RequestMapping(method = RequestMethod.GET, path = "/add-user-by-id")
 	public ResponseEntity<MyResp> AddByUserId(
 			@RequestParam(value = "userId") @NotNull(message = "validation.name.notnull") @Size(min = 1, max = 15, message = "validation.param.size") String userId,
@@ -109,7 +116,7 @@ public class Controller {
 	 * http://localhost:18888/user-portfolio-relations?userId=US001
 	 */
 	@DataCheck
-	@EntitlementCheck(userId = "bruce", commandGroupKey = "readCommand", resourceKey = "resourceName")
+	@EntitlementCheck(userId = "bruce", commandGroupKey = "readCommand", resourceKey = "resourceName3")
 	@RequestMapping(method = RequestMethod.GET, path = "/user-portfolio-relations")
 	public @ResponseBody List<UserPfRel> UserPortRels(
 			@RequestParam(value = "userId") @NotNull(message = "validation.name.notnull") @Size(min = 1, max = 15, message = "validation.param.size") String userId,
@@ -128,7 +135,7 @@ public class Controller {
 	 * "vin":"1234" }, { "color":"Red", "miles":500, "vin":"1235" } ]
 	 */
 	@DataCheck
-	@EntitlementCheck(userId = "bruce", commandGroupKey = "readCommand", resourceKey = "resourceName")
+	@EntitlementCheck(userId = "bruce", commandGroupKey = "readCommand", resourceKey = "resourceName3")
 	@RequestMapping(value = "/vehicle/cars", method = RequestMethod.POST)
 	public ResponseEntity<List<Car>> update(@RequestBody List<Car> cars) {
 
@@ -146,7 +153,7 @@ public class Controller {
 	 * "1235" }], "truck": { "color": "Red", "miles": 400, "vin": "1235" } }
 	 */
 	@DataCheck
-	@EntitlementCheck(userId = "bruce", commandGroupKey = "readCommand", resourceKey = "resourceName2")
+	@EntitlementCheck(userId = "bruce", commandGroupKey = "readCommand", resourceKey = "resourceName3")
 	@RequestMapping(value = "/carsandtrucks", method = RequestMethod.POST)
 	public ResponseEntity<RequestWrapper> updateWithMultipleObjects(@RequestBody RequestWrapper requestWrapper) {
 
@@ -155,5 +162,30 @@ public class Controller {
 		// TODO: call persistence layer to update
 
 		return new ResponseEntity<RequestWrapper>(requestWrapper, HttpStatus.OK);
+	}
+
+	@DataCheck
+	@EntitlementCheck(userId = "bruce", commandGroupKey = "readCommand", resourceKey = "resourceName3")
+	@RequestMapping(method = RequestMethod.POST, path = "/create-userId", produces = {
+			MediaType.APPLICATION_JSON_UTF8_VALUE })
+	public ResponseEntity<Map> createUserId(@RequestBody UserIdRequest createEbankUserId)
+			throws URISyntaxException {
+
+		String logonId = "EB" + myService.generateRandom();
+		Map<String, String> responseMap = new HashMap<String, String>();
+		responseMap.put("userId", logonId);
+
+		return new ResponseEntity<Map>(responseMap, HttpStatus.CREATED);
+	}
+
+	@DataCheck
+	@EntitlementCheck(userId = "bruce", commandGroupKey = "readCommand", resourceKey = "resourceName3")
+	@RequestMapping(method = { RequestMethod.GET }, path = { "/external-envoke-post" })
+	public ResponseEntity<String> SaveNewUser() throws NotFoundException {
+
+		String userId = myService.createUserId(null, null, null);
+		System.out.println("=============userId: " + userId);
+
+		return new ResponseEntity<String>(userId, HttpStatus.OK);
 	}
 }

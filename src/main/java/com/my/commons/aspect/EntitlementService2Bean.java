@@ -1,8 +1,10 @@
 package com.my.commons.aspect;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 @Service
+@Qualifier(value="EntitlementService2Bean")
 public class EntitlementService2Bean implements EntitlementService {
 
 	private String userId;

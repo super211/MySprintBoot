@@ -10,12 +10,23 @@
 
 package com.my.service;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import com.my.dao.UserPFRelRepository;
+import com.my.model.UserIdRequest;
 import com.my.model.MyResp;
 import com.my.model.UserPf;
 import com.my.model.UserPfRel;
@@ -26,6 +37,12 @@ public class MyService {
 
 	@Autowired(required = true)
 	UserPFRelRepository userPFRelRepository;
+	
+	@Autowired
+	RestTemplate _RestTemplate;
+
+	@Value("${exchangerate.service.url}")
+	private String exhcangeServiceUrl;
 
 	/**
 	 * This method is give list of asste market value of particular portfolio.
@@ -108,4 +125,45 @@ public class MyService {
 		return myResp;
 	}
 
+	/**
+	 * This method is used to generate random number for the userId
+	 * 
+	 * @return random number
+	 */
+	public int generateRandom() {
+		Random generator = null;
+		try {
+			generator = new Random(System.currentTimeMillis());
+			return generator.nextInt(999999 - 100000) + 100000;
+		} finally {
+			generator = null;
+		}
+
+	}
+	
+	public String createUserId(String userId, String password, String newPassword) throws NotFoundException {
+
+		try {
+			UserIdRequest createEbankUserId = new UserIdRequest();
+			createEbankUserId.setUserId(userId);
+			createEbankUserId.setPassword(password);
+			createEbankUserId.setPassword(newPassword);
+
+			HttpHeaders headerObject = new HttpHeaders();
+			headerObject.setContentType(MediaType.APPLICATION_JSON);
+
+			HttpEntity<UserIdRequest> httpEntity = new HttpEntity<UserIdRequest>(createEbankUserId,
+					headerObject);
+
+			String url = exhcangeServiceUrl.replaceAll(" ", "");
+			URI uri = new URI(url);
+			ResponseEntity<String> str = _RestTemplate.postForEntity(uri, httpEntity, String.class);
+
+			return str.getBody().replaceAll("\"", "").replaceAll("}", "").split(":")[1];
+
+		} catch (URISyntaxException ex) {
+			throw new RuntimeException();
+		}
+
+	}
 }
