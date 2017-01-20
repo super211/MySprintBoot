@@ -75,3 +75,36 @@
 	Component是一种泛指，标记类是组件，spring扫描注解配置时，会标记这些类要生成bean。
 >	
 	上面的Autowired和Resource是用来修饰字段，构造函数，或者设置方法，并做注入的。而Service，Controller，Repository，Component则是用来修饰类，标记这些类要生成bean。
+
+#添加密码加密
+
+> 
+Add the below dependency to the pom.xml
+>
+	<dependency>
+	    <groupId>com.github.ulisesbocchio</groupId>
+		<artifactId>jasypt-spring-boot</artifactId>
+		<version>1.8</version>
+	</dependency>
+	
+>
+下载jasypt-1.9.2,进入bin，在encypt.bat中添加：
+>
+	SET JAVA_HOME=C:\Program Files\Java\jdk1.8.0_71
+	SET PATH=%JAVA_HOME%\bin;%PATH%
+	
+>
+运行命令：
+>
+	encrypt.bat input="dbbank" password=master
+>
+Replace the property file with below value instead of the clear text.
+>
+	#spring.datasource.password=dbbank
+	spring.datasource.password=ENC(gRVTIsWmkX+yvvwN0TSeZQ==)
+	jasypt.encryptor.password=master
+>
+Add the below Annotation to Application.java OR BonecpConfig.java
+>
+	@EnableEncryptableProperties
+	@EnableAutoConfiguration

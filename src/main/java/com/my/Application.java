@@ -1,6 +1,7 @@
 package com.my;
 
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.cache.annotation.EnableCaching;
@@ -8,11 +9,15 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.validation.beanvalidation.MethodValidationPostProcessor;
 import org.springframework.web.client.RestTemplate;
 
+import com.ulisesbocchio.jasyptspringboot.annotation.EnableEncryptableProperties;
+
 @SpringBootApplication
 @EnableCaching
 // @ComponentScan("com.my")//it is not necessary when aspect in the same project
 // @Import(MetricConfiguration.class)//it is not necessary when aspect in the
 // same project
+@EnableEncryptableProperties
+@EnableAutoConfiguration
 public class Application {
 
 	public static void main(String[] args) {

@@ -30,6 +30,11 @@
 			<artifactId>hystrix-core</artifactId>
 			<version>1.5.8</version>
 		</dependency>
+		<dependency>
+			<groupId>com.github.ulisesbocchio</groupId>
+			<artifactId>jasypt-spring-boot</artifactId>
+			<version>1.8</version>
+		</dependency>
 	</dependencies>
 
 	<properties>

@@ -168,10 +168,10 @@ public class Controller {
 	@EntitlementCheck(userId = "bruce", commandGroupKey = "readCommand", resourceKey = "resourceName3")
 	@RequestMapping(method = RequestMethod.POST, path = "/create-userId", produces = {
 			MediaType.APPLICATION_JSON_UTF8_VALUE })
-	public ResponseEntity<Map> createUserId(@RequestBody UserIdRequest createEbankUserId)
+	public ResponseEntity<Map> createEbankingUserId(@RequestBody UserIdRequest createEbankUserId)
 			throws URISyntaxException {
 
-		String logonId = "EB" + myService.generateRandom();
+		String logonId = "ID" + myService.generateRandom();
 		Map<String, String> responseMap = new HashMap<String, String>();
 		responseMap.put("userId", logonId);
 
