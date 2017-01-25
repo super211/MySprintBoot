@@ -108,3 +108,13 @@ Add the below Annotation to Application.java OR BonecpConfig.java
 >
 	@EnableEncryptableProperties
 	@EnableAutoConfiguration
+
+# Add Oracle Driver
+
+>
+	Convert the project to JPA
+	Add Oracle Jar file and configure:
+		Other Driver: 11
+		JAR List: ojdbc7.jar
+		Connection URL: jdbc:oracle:thin:@SGPBO1D.sg.db.com:1825/SGPBO1D.sg.db.com
+		Database Name: SGPBO1D.sg.db.com
