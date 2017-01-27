@@ -30,10 +30,8 @@ public class BoncpConfig {
 	@Value("${bonecp.idleMaxAgeInMinutes}")
 	private Integer idleMaxAgeInMinutes;
 
-	/*
-	 * @Value("${bonecp.idleConnectionTestPeriodInMinutes}") private Integer
-	 * idleConnectionTestPeriodInMinutes;
-	 */
+	@Value("${bonecp.idleConnectionTestPeriodInMinutes}")
+	private Integer idleConnectionTestPeriodInMinutes;
 
 	@Value("${bonecp.maxConnectionsPerPartition}")
 	private Integer maxConnectionsPerPartition;
@@ -54,7 +52,7 @@ public class BoncpConfig {
 		dataSource.setJdbcUrl(jdbcUrl);
 		dataSource.setUsername(jdbcUsername);
 		dataSource.setPassword(jdbcPassword);
-		// dataSource.setIdleConnectionTestPeriodInMinutes(idleConnectionTestPeriodInMinutes);
+		dataSource.setIdleConnectionTestPeriodInMinutes(idleConnectionTestPeriodInMinutes);
 		dataSource.setIdleMaxAgeInMinutes(idleMaxAgeInMinutes);
 		dataSource.setMaxConnectionsPerPartition(maxConnectionsPerPartition);
 		dataSource.setMinConnectionsPerPartition(minConnectionsPerPartition);
