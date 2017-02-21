@@ -43,6 +43,17 @@
 >
 	git rm -r --cached target
 
+#Git Add Branch
+
+>
+	$ git checkout -b iss53
+		#Switched to a new branch "iss53"
+	
+This is shorthand for:
+>
+	$ git branch iss53
+	$ git checkout iss53
+
 #Markdown File
 * Editor
 
@@ -118,3 +129,16 @@ Add the below Annotation to Application.java OR BonecpConfig.java
 		JAR List: ojdbc7.jar
 		Connection URL: jdbc:oracle:thin:@SGPBO1D.sg.db.com:1825/SGPBO1D.sg.db.com
 		Database Name: SGPBO1D.sg.db.com
+		
+# Add Logback
+
+只需添加：
+>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+>
+	logback.xml Example
+	https://www.mkyong.com/logging/logback-xml-example/
