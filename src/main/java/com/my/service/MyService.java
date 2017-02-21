@@ -58,6 +58,12 @@ public class MyService {
 		listUserPortRel = userPFRelRepository.findUserPortId(userId);
 		return listUserPortRel;
 	}
+	
+	public List<UserPf> processUserByIdLatest(String userId, Integer lastNo) {
+		List<UserPf> listUserPortRel = null;
+		listUserPortRel = userPFRelRepository.findUserPortIdLatest(userId, lastNo);
+		return listUserPortRel;
+	}
 
 	public Iterable<UserPf> processUserList() {
 		Iterable<UserPf> listUserPortRel = null;

@@ -23,6 +23,10 @@ public interface UserPFRelRepository extends PagingAndSortingRepository<UserPf, 
 
 	@Query(value = "SELECT * FROM USER_PF A WHERE A.USER_ID = :userId", nativeQuery = true)
 	public List<UserPf> findUserPortId(@Param("userId") String userId);
+	
+	//We can use LIMIT for mysql
+	@Query(value = "SELECT * FROM (SELECT * FROM USER_PF A WHERE A.USER_ID = :userId ORDER BY PF_ID) WHERE  ROWNUM <= :lastNo", nativeQuery = true)
+	public List<UserPf> findUserPortIdLatest(@Param("userId") String userId, @Param("lastNo") Integer lastNo);
 
 	@Transactional
 	@Query(value = "SELECT * FROM USER_PF", nativeQuery = true)

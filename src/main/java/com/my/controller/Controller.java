@@ -62,6 +62,22 @@ public class Controller {
 		listUserPortfolio = myService.processUserById(userId);
 		return listUserPortfolio;
 	}
+	
+	/*
+	 * http://localhost:18888/user-list-by-id-latest?userId=US001&lastNo=2
+	 */
+	@DataCheck
+	@EntitlementCheck(userId = "bruce", commandGroupKey = "readCommand", resourceKey = "resourceName3")
+	@RequestMapping(method = RequestMethod.GET, path = "/user-list-by-id-latest")
+	public @ResponseBody List<UserPf> UserPortRelLastest(
+			@RequestParam(value = "userId") @NotNull(message = "validation.name.notnull") @Size(min = 1, max = 15, message = "validation.param.size") String userId,
+			@RequestParam(value = "lastNo") @NotNull(message = "validation.name.notnull") Integer lastNo,
+			HttpServletRequest request) {
+		List<UserPf> listUserPortfolio = null;
+
+		listUserPortfolio = myService.processUserByIdLatest(userId, lastNo);
+		return listUserPortfolio;
+	}
 
 	/*
 	 * http://localhost:8888/user-list?userId=US001
