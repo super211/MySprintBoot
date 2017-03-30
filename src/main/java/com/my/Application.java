@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.validation.beanvalidation.MethodValidationPostProcessor;
 import org.springframework.web.client.RestTemplate;
 
@@ -18,6 +19,7 @@ import com.ulisesbocchio.jasyptspringboot.annotation.EnableEncryptableProperties
 // same project
 @EnableEncryptableProperties
 @EnableAutoConfiguration
+@EnableScheduling
 public class Application {
 
 	public static void main(String[] args) {
