@@ -1,4 +1,4 @@
-package com.my;
+package com.my.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+//This class can be here or the same as Application
 @Component
 public class ScheduledTasks {
 
