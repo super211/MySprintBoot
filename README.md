@@ -142,3 +142,33 @@ Add the below Annotation to Application.java OR BonecpConfig.java
 >
 	logback.xml Example
 	https://www.mkyong.com/logging/logback-xml-example/
+	
+# Add Scheduler
+
+Application.java只需添加：
+>
+		@EnableScheduling
+
+再添加一个ScheduledTasks即可：
+>
+		@Component
+		public class ScheduledTasks {		
+		    private static final Logger log = LoggerFactory.getLogger(ScheduledTasks.class);		
+		    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");		
+		    @Scheduled(fixedRate = 60000)
+		    public void reportCurrentTime() {
+		        log.info("The time is now {}", dateFormat.format(new Date()));
+		    }
+		}
+
+如果需要从property file读值：
+>
+		//@Scheduled(fixedRate = 60000)
+    	@Scheduled(fixedRateString = "${rate}")
+
+另注：
+>
+		@SpringBootApplication = @Configuration + @EnableAutoConfiguration + @ComponentScan
+
+
+		

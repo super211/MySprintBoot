@@ -147,6 +147,7 @@ public class MyService {
 
 	}
 	
+	//POST调用其它Endpoint
 	public String createUserId(String userId, String password, String newPassword) throws NotFoundException {
 
 		try {

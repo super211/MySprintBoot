@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.validation.beanvalidation.MethodValidationPostProcessor;
 import org.springframework.web.client.RestTemplate;
@@ -14,11 +15,10 @@ import com.ulisesbocchio.jasyptspringboot.annotation.EnableEncryptableProperties
 
 @SpringBootApplication
 @EnableCaching
-// @ComponentScan("com.my")//it is not necessary when aspect in the same project
+// @ComponentScan("com.my")//it is not necessary because of @SpringBootApplication
 // @Import(MetricConfiguration.class)//it is not necessary when aspect in the
 // same project
 @EnableEncryptableProperties
-@EnableAutoConfiguration
 @EnableScheduling
 public class Application {
 

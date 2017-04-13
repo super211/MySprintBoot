@@ -194,6 +194,7 @@ public class Controller {
 		return new ResponseEntity<Map>(responseMap, HttpStatus.CREATED);
 	}
 
+	//POST调用其它Endpoint
 	@DataCheck
 	@EntitlementCheck(userId = "bruce", commandGroupKey = "readCommand", resourceKey = "resourceName3")
 	@RequestMapping(method = { RequestMethod.GET }, path = { "/external-envoke-post" })
