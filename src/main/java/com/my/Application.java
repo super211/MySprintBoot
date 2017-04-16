@@ -19,7 +19,6 @@ import com.ulisesbocchio.jasyptspringboot.annotation.EnableEncryptableProperties
 // @Import(MetricConfiguration.class)//it is not necessary when aspect in the
 // same project
 @EnableEncryptableProperties
-@EnableScheduling
 public class Application {
 
 	public static void main(String[] args) {

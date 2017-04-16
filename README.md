@@ -134,10 +134,10 @@ Add the below Annotation to Application.java OR BonecpConfig.java
 
 只需添加：
 >
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
+	<dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-web</artifactId>
+	</dependency>
 
 >
 	logback.xml Example
@@ -147,28 +147,34 @@ Add the below Annotation to Application.java OR BonecpConfig.java
 
 Application.java只需添加：
 >
-		@EnableScheduling
+	@EnableScheduling
 
 再添加一个ScheduledTasks即可：
 >
-		@Component
-		public class ScheduledTasks {		
-		    private static final Logger log = LoggerFactory.getLogger(ScheduledTasks.class);		
-		    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");		
-		    @Scheduled(fixedRate = 60000)
-		    public void reportCurrentTime() {
-		        log.info("The time is now {}", dateFormat.format(new Date()));
-		    }
-		}
+	@Component
+	public class ScheduledTasks {		
+	    private static final Logger log = LoggerFactory.getLogger(ScheduledTasks.class);		
+	    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");		
+	    @Scheduled(fixedRate = 60000)
+	    public void reportCurrentTime() {
+	        log.info("The time is now {}", dateFormat.format(new Date()));
+	    }
+	}
 
 如果需要从property file读值：
 >
-		//@Scheduled(fixedRate = 60000)
-    	@Scheduled(fixedRateString = "${rate}")
+	//@Scheduled(fixedRate = 60000)
+   	@Scheduled(fixedRateString = "${rate}")
 
 另注：
 >
-		@SpringBootApplication = @Configuration + @EnableAutoConfiguration + @ComponentScan
+	@SpringBootApplication = @Configuration + @EnableAutoConfiguration + @ComponentScan
 
+# Add Quartz:
 
+>
+In this page we will walk through the spring 4 and quartz 2 scheduler integration annotation example using JavaConfig. Spring provides MethodInvokingJobDetailFactoryBean and SimpleTriggerFactoryBean to schedule simple job. We have to create bean for these classes in JavaConfig. The job class and method name are configured with MethodInvokingJobDetailFactoryBean and this bean is configured with SimpleTriggerFactoryBean and SimpleTriggerFactoryBean is finally registered with spring SchedulerFactoryBean in JavaConfig. For complex job where we need cron-expression, we use spring API JobDetailFactoryBean and CronTriggerFactoryBean in JavaConfig. Using JobDetailFactoryBean, we can pass the parameter to Job as well. While creating Job class, we need to implement QuartzJobBean and override executeInternal() method and create setter method for the parameter which will be passed by JobDetailFactoryBean. Here we will discuss complete example step by step.
+
+>
+http://www.concretepage.com/spring-4/spring-4-quartz-2-scheduler-integration-annotation-example-using-javaconfig
 		
