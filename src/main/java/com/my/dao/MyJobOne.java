@@ -8,17 +8,8 @@ import org.springframework.web.client.RestTemplate;
 @Service("jobone")
 public class MyJobOne {
 	
-/*	@Autowired
+	@Autowired
 	RestTemplate _RestTemplate;
-
-	@Value("${eBankingDownStartDateTime}")
-	private String eBankingDownStartDateTime;
-
-	@Value("${eBankingDownEndDateTime}")
-	private String eBankingDownEndDateTime;
-	
-	@Value("${systemHealthCheckUrl}")
-	private String systemHealthCheckUrl;
 	
 	@Value("${email.host}")
 	private String emailHost;
@@ -30,12 +21,13 @@ public class MyJobOne {
 	private String emailFrom;
 	
 	@Value("${email.title}")
-	private String emailTitle;*/
+	private String emailTitle;
 	
     protected void myTask() {
     	System.out.println("This is my task");
-    	/*String responseEntity = _RestTemplate.getForObject(systemHealthCheckUrl, String.class);
+    	//String responseEntity = _RestTemplate.getForObject(systemHealthCheckUrl, String.class);
+    	String responseEntity = "Testing Email";
 		SendEmail.send(emailTo, emailFrom, emailHost, emailTitle, responseEntity);
-		System.out.println("Response Msg: " + responseEntity);*/
+		System.out.println("Response Msg: " + responseEntity);
     }
 }
