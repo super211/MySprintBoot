@@ -53,6 +53,10 @@ This is shorthand for:
 >
 	$ git branch iss53
 	$ git checkout iss53
+	
+#Git Switch Branch
+>
+	$git checkout master
 
 #Markdown File
 * Editor
