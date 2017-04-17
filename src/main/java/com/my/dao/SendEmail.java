@@ -20,12 +20,21 @@ public class SendEmail {
 		Authenticator authenticator = new Authenticator();
 		properties.setProperty("mail.smtp.submitter", authenticator.getPasswordAuthentication().getUserName());
 		properties.setProperty("mail.smtp.auth", "true");
+		properties.put("mail.smtp.starttls.enable", "true");
 		properties.setProperty("mail.smtp.host", host);
-		// properties.setProperty("mail.smtp.port", "25");//No need because the
+		properties.setProperty("mail.smtp.port", "587");//No need because the
 		// default is 25
 		// Session session = Session.getDefaultInstance(properties);//For the
 		// scenario of no need authentication
 		Session session = Session.getInstance(properties, authenticator);
+		
+		//2nd implementation
+		/*Session session = Session.getInstance(properties,
+		          new javax.mail.Authenticator() {
+		            protected PasswordAuthentication getPasswordAuthentication() {
+		                return new PasswordAuthentication("joanna.phay.sg", "joanna.326");
+		            }
+		          });*/
 
 		// compose the message
 		try {
@@ -56,8 +65,8 @@ public class SendEmail {
 		private PasswordAuthentication authentication;
 
 		public Authenticator() {
-			String username = "lgp211";
-			String password = "wy.8i2ii0.";
+			String username = "joanna.phay.sg";
+			String password = "joanna.326";
 			authentication = new PasswordAuthentication(username, password);
 		}
 

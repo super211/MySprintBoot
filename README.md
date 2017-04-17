@@ -178,3 +178,8 @@ In this page we will walk through the spring 4 and quartz 2 scheduler integratio
 >
 http://www.concretepage.com/spring-4/spring-4-quartz-2-scheduler-integration-annotation-example-using-javaconfig
 		
+# Add GMail Sending
+
+gmail javax.mail.AuthenticationFailedException:
+>
+	Sign-in & security -> Connected apps & sites -> Allow less secure apps:ON

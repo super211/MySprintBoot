@@ -34,7 +34,7 @@ public class QuartzConfiguration {
 	public SimpleTriggerFactoryBean simpleTriggerFactoryBean() {
 		SimpleTriggerFactoryBean stFactory = new SimpleTriggerFactoryBean();
 		stFactory.setJobDetail(methodInvokingJobDetailFactoryBean().getObject());
-		stFactory.setStartDelay(Long.parseLong(rate));
+		//stFactory.setStartDelay(Long.parseLong(rate));//延迟trigger
 		stFactory.setRepeatInterval(Long.parseLong(rate));//设置时间间隔
 		stFactory.setRepeatCount(3);//设置重复次数
 		return stFactory;
