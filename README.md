@@ -151,28 +151,44 @@ Add the below Annotation to Application.java OR BonecpConfig.java
 
 Application.java只需添加：
 >
-		@EnableScheduling
+	@EnableScheduling
 
 再添加一个ScheduledTasks即可：
 >
-		@Component
-		public class ScheduledTasks {		
-		    private static final Logger log = LoggerFactory.getLogger(ScheduledTasks.class);		
-		    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");		
-		    @Scheduled(fixedRate = 60000)
-		    public void reportCurrentTime() {
-		        log.info("The time is now {}", dateFormat.format(new Date()));
-		    }
-		}
+	@Component
+	public class ScheduledTasks {		
+	    private static final Logger log = LoggerFactory.getLogger(ScheduledTasks.class);		
+	    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");		
+	    @Scheduled(fixedRate = 60000)
+	    public void reportCurrentTime() {
+	        log.info("The time is now {}", dateFormat.format(new Date()));
+	    }
+	}
 
 如果需要从property file读值：
 >
-		//@Scheduled(fixedRate = 60000)
-    	@Scheduled(fixedRateString = "${rate}")
+	//@Scheduled(fixedRate = 60000)
+	@Scheduled(fixedRateString = "${rate}")
 
 另注：
 >
-		@SpringBootApplication = @Configuration + @EnableAutoConfiguration + @ComponentScan
+	@SpringBootApplication = @Configuration + @EnableAutoConfiguration + @ComponentScan
 
+# Start without DB
+Application添加,代替@SpringBootApplication：
+>
+	@Configuration 
+	@ComponentScan
+	@EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class, DataSourceTransactionManagerAutoConfiguration.class, HibernateJpaAutoConfiguration.class})
 
+删除BoncpConfig
+
+删除bonecp的properties@application.properties
 		
+# Format Date
+Sample: in Model Class
+>
+	@Column(name = "MAKER_DATETIME")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-mm-dd hh:mm:ss", timezone = "America/Phoenix")
+	@JsonDeserialize(using = CustomTimeDeserializer.class)
+	private Timestamp makerDatetime;
