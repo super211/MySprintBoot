@@ -192,3 +192,8 @@ Sample: in Model Class
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-mm-dd hh:mm:ss", timezone = "America/Phoenix")
 	@JsonDeserialize(using = CustomTimeDeserializer.class)
 	private Timestamp makerDatetime;
+	
+#Search Query
+searchTerm = searchTerm + "%"
+>
+	SELECT PF_ID,PS_POS_ID,PS_DESC,PS_SEC_NMB,PS_AST_CLS FROM POS_EQUITY WHERE (PS_ISIN LIKE :searchTerm OR  PS_DESC LIKE :searchTerm OR PS_RIC_CODE LIKE :searchTerm) AND PF_ID IN (SELECT PF_ID FROM USER_PF WHERE USER_ID=:userId) UNION SELECT PF_ID, PS_POS_ID,PS_DESC, PS_SEC_NMB,PS_AST_CLS FROM POS_BONDS WHERE (PS_ISIN LIKE :searchTerm OR  PS_DESC LIKE :searchTerm OR PS_RIC_CODE LIKE :searchTerm) AND PF_ID IN (SELECT PF_ID FROM USER_PF WHERE USER_ID=:userId)
