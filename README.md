@@ -57,6 +57,15 @@ This is shorthand for:
 #Git Switch Branch
 >
 	$git checkout master
+	
+#Git Reset
+Reset the ""git add"
+>
+	$git reset HEAD~
+	
+Reset all changes
+>
+	#git reet --hard HEAD~
 
 #Markdown File
 * Editor
