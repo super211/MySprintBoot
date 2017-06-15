@@ -1,4 +1,4 @@
-#"# MySpringBoot" 
+#`MySpringBoot`
 
 #GIT IGNORE（.gitignore）  
 >
@@ -143,6 +143,24 @@ Add the below Annotation to Application.java OR BonecpConfig.java
 		Connection URL: jdbc:oracle:thin:@SGPBO1D.sg.db.com:1825/SGPBO1D.sg.db.com
 		Database Name: SGPBO1D.sg.db.com
 		
+# Add Latest Oracle Driver Manually
+
+Download Jar: 
+>
+	http://www.java2s.com/Code/JarDownload/ojdbc14/ojdbc14-10.2.0.4.0.jar.zip
+
+Install Jar:
+>
+	mvn install:install-file -Dfile=ojdbc14.jar -DgroupId=com.oracle -DartifactId=ojdbc14 -Dversion=10.2.0.4.0 -Dpackaging=jar
+
+add dependency pom.xml
+>
+	<dependency>
+    	<groupId>com.oracle</groupId>
+    	<artifactId>ojdbc14</artifactId>
+    	<version>10.2.0.4.0</version>
+	</dependency>
+		
 # Add Logback
 
 只需添加：
@@ -152,8 +170,8 @@ Add the below Annotation to Application.java OR BonecpConfig.java
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
+logback.xml Example
 >
-	logback.xml Example
 	https://www.mkyong.com/logging/logback-xml-example/
 	
 # Add Scheduler
